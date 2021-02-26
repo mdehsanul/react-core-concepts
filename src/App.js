@@ -4,15 +4,24 @@ import './App.css';
 
 // main Component
 function App() {
-  const nayoks=['jashim', 'sakib khan', 'bapparaj']
+  // array
+  const nayoks=['jashim', 'sakib khan', 'bapparaj', 'omor sani', 'alomgir']
+  // object
+  const nayoksObject=[{name:'Iron Man', age:56}, {name:'The Hulk', age:65}, {name:'Doctor Strange', age: 15}, {name:'Storm', age:25}, {name:'Professor X', age:20}]
   return (
     <div className="App">
       <MovieCounter></MovieCounter>
       {/* custom element -> custom element not same as HTML elements*/}
-      <Nayok name={nayoks[0]} age='56'></Nayok>
-      <Nayok name={nayoks[2]}></Nayok>
-      <Nayok name='ehsanul'></Nayok>
-      <Nayok name={nayoks[1]}></Nayok>
+      {/* accessing array */}
+      {
+        nayoks.map(nk => <Nayok name={nk}></Nayok>)
+      }
+
+      {/* accessing object */}
+      {
+        nayoksObject.map(nk => <Nayok name={nk.name} age={nk.age}></Nayok>)
+      }
+     
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
