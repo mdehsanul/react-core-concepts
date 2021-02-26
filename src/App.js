@@ -1,27 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 // main Component
 function App() {
-  // array
-  const nayoks=['jashim', 'sakib khan', 'bapparaj', 'omor sani', 'alomgir']
-  // object
-  const nayoksObject=[{name:'Iron Man', age:56}, {name:'The Hulk', age:65}, {name:'Doctor Strange', age: 15}, {name:'Storm', age:25}, {name:'Professor X', age:20}]
+  // random user generate from API
+  const [nayoks, setNayoks] = useState([]);
+  useEffect(() =>{
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(data => setNayoks(data))
+  }, [])
   return (
     <div className="App">
       <MovieCounter></MovieCounter>
       {/* custom element -> custom element not same as HTML elements*/}
-      {/* accessing array */}
+      {/* accessing random user  from API */}
       {
-        nayoks.map(nk => <Nayok name={nk}></Nayok>)
+        nayoks.map(nk => <Nayok name={nk.name} key={nk.id} email={nk.email}></Nayok>)
       }
-
-      {/* accessing object */}
-      {
-        nayoksObject.map(nk => <Nayok name={nk.name} age={nk.age}></Nayok>)
-      }
-     
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
@@ -56,8 +53,8 @@ function Nayok(props){
     margin: "20px"
   }
   return <div style={nayokStyle}>
-    <h1>Ami: {props.name}</h1>
-    <p>I have done 5 movies in {props.age || 24} years old.</p>
+    <h1>Name: {props.name}</h1>
+    <p>Email: {props.email}</p>
   </div>
 }
 
